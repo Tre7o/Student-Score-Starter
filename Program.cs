@@ -2,15 +2,19 @@
 using System.Xml.Linq;
 
 // initialize variables - graded assignments 
-int currentAssignments = 5;
+int examAssignments = 5;
 
 // Student names
-string[] studentNames = new string[] { "Sophia", "Andrew", "Emma", "Logan" };
+string[] studentNames = new string[] { "Sophia", "Andrew", "Emma", "Logan", "Becky", "Chris", "Eric", "Gregor" };
 
-int[] sophiaScores = new int[] { 90, 86, 87, 98, 100 };
-int[] andrewScores = new int[] { 92, 89, 81, 96, 90 };
-int[] emmaScores = new int[] { 90, 85, 87, 98, 68 };
-int[] loganScores = new int[] { 90, 95, 87, 88, 96 };
+int[] sophiaScores = new int[] { 90, 86, 87, 98, 100, 94, 90 };
+int[] andrewScores = new int[] { 92, 89, 81, 96, 90, 89 };
+int[] emmaScores = new int[] { 90, 85, 87, 98, 68, 89, 89, 89 };
+int[] loganScores = new int[] { 90, 95, 87, 88, 96, 96 };
+int[] beckyScores = new int[] { 92, 91, 90, 91, 92, 92, 92 };
+int[] chrisScores = new int[] { 84, 86, 88, 90, 92, 94, 96, 98 };
+int[] ericScores = new int[] { 80, 90, 100, 80, 90, 100, 80, 90 };
+int[] gregorScores = new int[] { 91, 91, 91, 91, 91, 91, 91 };
 
 int[] studentScores = new int[10];
 
@@ -21,14 +25,27 @@ foreach (string studentName in studentNames)
     //Console.WriteLine(studentName);
     string currentStudent = studentName;
 
+    int gradedAssigments = 0;
+
     if (studentName == "Sophia")
+        // assign Sophia's scores to the studentScores array 
         studentScores = sophiaScores;
     else if (studentName == "Andrew")
         studentScores = andrewScores;
     else if (studentName == "Emma")
         studentScores = emmaScores;
-    else
+    else if(studentName == "Logan")
         studentScores = loganScores;
+    else if (currentStudent == "Becky")
+        studentScores = beckyScores;
+    else if (currentStudent == "Chris")
+        studentScores = chrisScores;
+    else if (currentStudent == "Eric")
+        studentScores = ericScores;
+    else if (currentStudent == "Gregor")
+        studentScores = gregorScores;
+    else
+        continue;
 
     int sumAssignmentScores = 0; // to replace individual sums
 
@@ -36,11 +53,22 @@ foreach (string studentName in studentNames)
 
     foreach (int score in studentScores)
     {
-        // add the exam score to the sum
-        sumAssignmentScores += score;
+        gradedAssigments++;
+
+        if (gradedAssigments <= examAssignments)
+        {
+            // add the exam score to the sum
+            sumAssignmentScores += score;
+        }
+        else 
+        {
+            // add the extra credit points to the sum - bonus points equal to 10% of an exam score
+            sumAssignmentScores += score / 10;
+        }
+        
     }
 
-    currentStudentGrade = (decimal)sumAssignmentScores / currentAssignments;
+    currentStudentGrade = (decimal)sumAssignmentScores / examAssignments;
 
     string currentStudentLetterGrade = "";
 
